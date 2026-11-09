@@ -1,0 +1,42 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-ed6185480ebd2ed730d17cb8efd874a6fd3bcf89",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "userSourceNameMap": {
+    "contracts/CredentialVerification.sol": "project/contracts/CredentialVerification.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/CredentialVerification.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.28;\r\n\r\ncontract CredentialVerification {\r\n\r\n    address public owner;\r\n\r\n    struct Credential {\r\n        string studentName;\r\n        string courseName;\r\n        string institution;\r\n        string credentialId;\r\n        string ipfsCid;\r\n        uint256 issueDate;\r\n        bool isValid;\r\n    }\r\n\r\n    mapping(string => Credential) private credentials;\r\n\r\n\r\n    // EVENTS\r\n\r\n    event CredentialIssued(\r\n        string credentialId,\r\n        string studentName,\r\n        string courseName,\r\n        string ipfsCid\r\n    );\r\n\r\n    event CredentialRevoked(\r\n        string credentialId\r\n    );\r\n\r\n\r\n    // CONSTRUCTOR\r\n\r\n    constructor() {\r\n        owner = msg.sender;\r\n    }\r\n\r\n\r\n    // MODIFIER\r\n\r\n    modifier onlyOwner() {\r\n        require(\r\n            msg.sender == owner,\r\n            \"Only owner can perform this action\"\r\n        );\r\n        _;\r\n    }\r\n\r\n\r\n    // ISSUE CREDENTIAL\r\n\r\n    function issueCredential(\r\n        string memory _credentialId,\r\n        string memory _studentName,\r\n        string memory _courseName,\r\n        string memory _institution,\r\n        string memory _ipfsCid\r\n    ) public onlyOwner {\r\n\r\n        require(\r\n            bytes(_credentialId).length > 0,\r\n            \"Credential ID cannot be empty\"\r\n        );\r\n\r\n        require(\r\n            bytes(credentials[_credentialId].credentialId).length == 0,\r\n            \"Credential already exists\"\r\n        );\r\n\r\n        credentials[_credentialId] = Credential({\r\n            studentName: _studentName,\r\n            courseName: _courseName,\r\n            institution: _institution,\r\n            credentialId: _credentialId,\r\n            ipfsCid: _ipfsCid,\r\n            issueDate: block.timestamp,\r\n            isValid: true\r\n        });\r\n\r\n        emit CredentialIssued(\r\n            _credentialId,\r\n            _studentName,\r\n            _courseName,\r\n            _ipfsCid\r\n        );\r\n    }\r\n\r\n\r\n    // VERIFY CREDENTIAL\r\n\r\n    function verifyCredential(\r\n        string memory _credentialId\r\n    )\r\n        public\r\n        view\r\n        returns (\r\n            string memory studentName,\r\n            string memory courseName,\r\n            string memory institution,\r\n            string memory ipfsCid,\r\n            uint256 issueDate,\r\n            bool isValid\r\n        )\r\n    {\r\n\r\n        Credential memory credential =\r\n            credentials[_credentialId];\r\n\r\n        require(\r\n            bytes(credential.credentialId).length > 0,\r\n            \"Credential does not exist\"\r\n        );\r\n\r\n        return (\r\n            credential.studentName,\r\n            credential.courseName,\r\n            credential.institution,\r\n            credential.ipfsCid,\r\n            credential.issueDate,\r\n            credential.isValid\r\n        );\r\n    }\r\n\r\n\r\n    // REVOKE CREDENTIAL\r\n\r\n    function revokeCredential(\r\n        string memory _credentialId\r\n    ) public onlyOwner {\r\n\r\n        require(\r\n            bytes(credentials[_credentialId].credentialId).length > 0,\r\n            \"Credential does not exist\"\r\n        );\r\n\r\n        require(\r\n            credentials[_credentialId].isValid,\r\n            \"Credential is already revoked\"\r\n        );\r\n\r\n        credentials[_credentialId].isValid = false;\r\n\r\n        emit CredentialRevoked(_credentialId);\r\n    }\r\n}"
+      }
+    }
+  }
+}

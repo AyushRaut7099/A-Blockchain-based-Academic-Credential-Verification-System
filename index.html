@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blockchain Credential Verification System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <!-- ============================= -->
+    <!-- NAVIGATION BAR -->
+    <!-- ============================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            BlockVerify
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#home">Home</a>
+
+            <a href="#issue">
+                Issue Credential
+            </a>
+
+            <a href="#verify">
+                Verify Credential
+            </a>
+
+            <button
+                id="connectWalletBtn"
+                class="connect-wallet-btn"
+            >
+                Connect MetaMask
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- HERO SECTION -->
+    <!-- ============================= -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Blockchain-Based Credential
+                Verification System
+            </h1>
+
+            <p>
+                Secure, transparent and tamper-resistant credential
+                verification using Blockchain and IPFS.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#issue"
+                    class="btn primary-btn"
+                >
+                    Issue Credential
+                </a>
+
+                <a
+                    href="#verify"
+                    class="btn secondary-btn"
+                >
+                    Verify Credential
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- ISSUE CREDENTIAL SECTION -->
+    <!-- ============================= -->
+
+    <section id="issue" class="section">
+
+        <h2>Issue a Credential</h2>
+
+        <div class="form-container">
+
+
+            <!-- Certificate ID -->
+
+            <input
+                type="text"
+                id="certificateId"
+                placeholder="Certificate ID"
+                required
+            >
+
+
+            <!-- Student Name -->
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Student Name"
+                required
+            >
+
+
+            <!-- Course -->
+
+            <input
+                type="text"
+                id="course"
+                placeholder="Course / Credential Name"
+                required
+            >
+
+
+            <!-- Institution -->
+
+            <input
+                type="text"
+                id="institution"
+                placeholder="Institution Name"
+                required
+            >
+
+
+            <!-- Certificate PDF -->
+
+            <input
+                type="file"
+                id="certificateFile"
+                accept=".pdf"
+                required
+            >
+
+
+            <!-- Issue Button -->
+
+            <button
+                id="issueBtn"
+                class="btn primary-btn"
+            >
+                Upload & Issue Credential
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- VERIFY CREDENTIAL SECTION -->
+    <!-- ============================= -->
+
+    <section
+        id="verify"
+        class="section verify-section"
+    >
+
+        <h2>Verify a Credential</h2>
+
+        <div class="verify-container">
+
+            <input
+                type="text"
+                id="verifyCertificateId"
+                placeholder="Enter Certificate ID"
+            >
+
+            <button
+                id="verifyBtn"
+                class="btn primary-btn"
+            >
+                Verify Credential
+            </button>
+
+        </div>
+
+
+        <!-- Verification Result -->
+
+        <div
+            id="verificationResult"
+            class="verification-result"
+        >
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- FOOTER -->
+    <!-- ============================= -->
+
+    <footer>
+
+        <p>
+            Blockchain-Based Credential Verification System
+            | PBL Project
+        </p>
+
+    </footer>
+
+
+    <!-- ============================= -->
+    <!-- ETHERS.JS -->
+    <!-- Load ONLY ONCE -->
+    <!-- ============================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+
+
+    <!-- ============================= -->
+    <!-- PROJECT JAVASCRIPT -->
+    <!-- ============================= -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
